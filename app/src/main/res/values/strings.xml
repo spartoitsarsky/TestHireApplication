@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">TestHireApplication</string>
+    <string name="menu_schedule">Schedule</string>
+    <string name="menu_about">About</string>
+    <string name="menu_full">Fill data</string>
+    <string name="json_url">https://raw.githubusercontent.com/tutu-ru/hire_android_test/master/allStations.json</string>
+    <string name="menu_fill">Load Data</string>
+    <string name="station_from">От</string>
+    <string name="station_to">Куда</string>
+    <string name="no_data_available">Ничего не найдено</string>
+    <string name="dialog_choose_date_title">Выберите день отправления</string>
+</resources>
