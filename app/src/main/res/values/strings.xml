@@ -9,4 +9,6 @@
     <string name="station_to">Куда</string>
     <string name="no_data_available">Ничего не найдено</string>
     <string name="dialog_choose_date_title">Выберите день отправления</string>
+    <string name="author">Автор</string>
+    <string name="version">Версия</string>
 </resources>

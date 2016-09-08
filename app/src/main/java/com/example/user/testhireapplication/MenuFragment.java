@@ -1,6 +1,8 @@
 package com.example.user.testhireapplication;
 
 import android.app.Activity;
+import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -48,7 +50,6 @@ public class MenuFragment extends Fragment {
     }
 
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +84,7 @@ public class MenuFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                new DataLoader().execute();
+                new DataLoader(getActivity()).execute();
 
             }
         });
@@ -120,6 +121,19 @@ public class MenuFragment extends Fragment {
     * Тяжелый процесс, состоящий из загрузки JSon из сети, его парсинга и вставки в БД, после успешного окончания разблокируется интерфейс
     * */
     class DataLoader extends AsyncTask<Void, Void, TreeMap<Integer, String>> {
+        private ListActivity activity;
+        private ProgressDialog dialog;
+
+        public DataLoader(Context context) {
+            this.activity = activity;
+            dialog = new ProgressDialog(context);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            this.dialog.setMessage("Данные загружаются и обрабатываются. Подождите.");
+            this.dialog.show();
+        }
 
         @Override
         protected TreeMap<Integer, String> doInBackground(Void... params) {
@@ -150,6 +164,9 @@ public class MenuFragment extends Fragment {
 
         @Override
         protected void onPostExecute(TreeMap<Integer, String> map) {
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
             super.onPostExecute(map);
             Log.i(TAG, "errorCode: " + map.firstEntry().getKey());
             int errorCode = map.firstEntry().getKey();
@@ -178,15 +195,15 @@ public class MenuFragment extends Fragment {
         Заполняем массив объектами Station
         */
 
-            fillArrayWithStations(citiesTo, mStationLab.returnList(), "to");
-            fillArrayWithStations(citiesFrom, mStationLab.returnList(), "from");
+        fillArrayWithStations(citiesTo, mStationLab.returnList(), "to");
+        fillArrayWithStations(citiesFrom, mStationLab.returnList(), "from");
 
-            for (Station station : mStationLab.returnList() ) {
-                Log.i(TAG, station.getStationId() + " " + station.getCityTitle() + " " + station.getCountryTitle() + " " + station.getStationType());
-                //вставка в бд
-                mStationLab.placeToDB(station);
+        for (Station station : mStationLab.returnList()) {
+            Log.i(TAG, station.getStationId() + " " + station.getCityTitle() + " " + station.getCountryTitle() + " " + station.getStationType());
+            //вставка в бд
+            mStationLab.placeToDB(station);
 
-            }
+        }
 
     }
 

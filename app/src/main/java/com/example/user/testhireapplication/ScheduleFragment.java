@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -78,7 +77,7 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentManager fm = getFragmentManager();
-                DialogFragment dialog = DatePickerFragment.newInstance(new Date());
+                DialogFragment dialog = DatePickerDialogFragment.newInstance(new Date());
                 dialog.setTargetFragment(ScheduleFragment.this, REQUEST_DATE);
                 dialog.show(fm, DATE_DIALOG);
             }
@@ -111,7 +110,7 @@ public class ScheduleFragment extends Fragment {
             mEditTextTo.setText(mStationTo.getStationTitle());
 
         } else if (requestCode == REQUEST_DATE) {
-            mDepartureDate = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            mDepartureDate = (Date) data.getSerializableExtra(DatePickerDialogFragment.EXTRA_DATE);
             Log.i(TAG, "Received " + mDepartureDate.toString());
 
             mPickDateButton.setText(convertDate(mDepartureDate));

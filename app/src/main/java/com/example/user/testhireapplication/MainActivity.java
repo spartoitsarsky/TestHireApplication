@@ -2,13 +2,13 @@ package com.example.user.testhireapplication;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
 
 public class MainActivity extends SingleFragmentActivity implements MenuFragment.MenuClickListener {
     private final static String TAG = "MainActivity";
+    private final static String ABOUT_DIALOG_FRAGMENT="dialog_fragment";
     FragmentManager fm;
 
     @Override
@@ -42,6 +42,8 @@ public class MainActivity extends SingleFragmentActivity implements MenuFragment
     @Override
     public void proceedToAbout() {
         Log.i(TAG, "about_button pressed, need to proceed to About");
+        switchFragment(AboutFragment.newInstance());
+
     }
 
     public void switchFragment(Fragment fragment) {

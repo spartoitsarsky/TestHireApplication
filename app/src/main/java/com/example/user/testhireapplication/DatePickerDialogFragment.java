@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -22,7 +21,7 @@ import java.util.GregorianCalendar;
  * Created by v.borovkov on 08.09.2016.
  * Диалоговый фрагмент с одним DatePicker
  */
-public class DatePickerFragment extends DialogFragment {
+public class DatePickerDialogFragment extends DialogFragment {
     private DatePicker mDatePicker;
     private static final String DIALOG_DATE = "DialogDate";
     private final static String ARG_DATE = "date";
@@ -57,11 +56,11 @@ public class DatePickerFragment extends DialogFragment {
         }).create();
     }
 
-    public static DatePickerFragment newInstance(Date date) {
+    public static DatePickerDialogFragment newInstance(Date date) {
 
         Bundle args = new Bundle();
         args.putSerializable(ARG_DATE, date);
-        DatePickerFragment fragment = new DatePickerFragment();
+        DatePickerDialogFragment fragment = new DatePickerDialogFragment();
         fragment.setArguments(args);
         return fragment;
     }
